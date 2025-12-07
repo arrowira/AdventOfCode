@@ -1,6 +1,6 @@
 numbers ="1234567890"
 
-res = 0
+
 minNumber = 0
 maxNumber = 0
 minNumberStr = ""
@@ -13,9 +13,36 @@ def newRange():
     minNumberStr = ""
     maxNumberStr = ""
     postDash = False
-def isDouble(num):
+def isInvalid(num):
     strNum = str(num)
-    return strNum[:int(len(strNum)/2)] == strNum[int(len(strNum)/2):]
+    repLen = 1
+
+    while repLen<len(strNum):
+        if len(strNum)%repLen == 0:
+
+            char = 0
+            broken = False
+            lastWindow = ""
+            while char < len(strNum)-repLen+1:
+                
+                if (lastWindow != strNum[char:char+repLen] and char!=0) or (len(strNum[char:char+repLen]) > len(strNum)/2):
+                    broken=True
+                    
+                    break
+
+
+                lastWindow = strNum[char:char+repLen]
+                char+=repLen
+                
+            if not broken:
+                return True
+                
+        repLen+=1
+    return False
+
+ 
+#string parser
+res = 0
 with open('aoc2025/day2/input.txt', 'r') as f:
     for line in f:
         print(line)
@@ -35,12 +62,13 @@ with open('aoc2025/day2/input.txt', 'r') as f:
                 #end of range
                 minNumber = int(minNumberStr)
                 maxNumber = int(maxNumberStr)
-                
+                print(f"{minNumber=}")
+                print(f"{maxNumber=}")
                 for i in range(minNumber, maxNumber+1):
-                    if isDouble(i):
+                    if isInvalid(i):
                         res+=i
                         print(i)
 
-
+   
                 newRange()
-print(res)
+print("res:" + str(res))
