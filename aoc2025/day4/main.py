@@ -1,24 +1,21 @@
 map = []
-
-def printMap():
-    for i in map:
-        print(i)
-def checkSpot(x, y):
-    if map[r+y][c+x] == "@":
-        return True
-    return False
-
-res = 0
-with open('aoc2025/day4/input.txt', 'r') as f:
-    #copy file
-    for line in f:
-        newRow = []
-        for c in line:
-            if c != "\n":
-                newRow.append(c)
-        map.append(newRow)
+sum = 0
+def printMap(array):
+        for i in array:
+            print(i)
+def wholeThing(map):
+    global sum
 
     
+    def checkSpot(x, y):
+        if map[r+y][c+x] == "@":
+            return True
+        return False
+
+    res = 0
+    
+
+        
     for r in range(len(map)):
         for c in range(len(map[0])):
             adjacentPapers = 0
@@ -58,5 +55,22 @@ with open('aoc2025/day4/input.txt', 'r') as f:
                     if checkSpot(1,0):
                         adjacentPapers+=1
                 if adjacentPapers < 4:
+                    map[r][c]="."
+                    
                     res+=1
-print("res: "+str(res))
+    print("res: "+str(res))
+    sum+=res
+    return (map,res)
+
+with open('aoc2025/day4/input.txt', 'r') as f:
+        #copy file
+        for line in f:
+            newRow = []
+            for c in line:
+                if c != "\n":
+                    newRow.append(c)
+            map.append(newRow)
+while wholeThing(map)[1]!=0:
+    pass
+
+print(sum)
