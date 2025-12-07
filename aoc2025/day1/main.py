@@ -1,7 +1,7 @@
 num = 50
 res = 0
 
-with open('day1/input.txt', 'r') as f:
+with open('aoc2025/day1/input.txt', 'r') as f:
     for line in f:
         print(f"{line=}")
         firstCorrection = True
